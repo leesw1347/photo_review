@@ -9,12 +9,12 @@ public class EvenOdd {
             } else {
                 temp /= 2;
             }
-            System.out.println("[" + temp + "]");
+            System.out.print("[" + temp + "] ");
         }
         System.out.println();
     }
 
     public static void main(String[] args) {
-        showOddnEvenw(122);
+        showOddnEvenw(121);
     }
 }
