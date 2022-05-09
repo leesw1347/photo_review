@@ -17,13 +17,14 @@ public class BitNShiftMain {
 //        return s.toString();
 //        StringBuilder str = new StringBuilder();
 //        str = MessageFormat.format("{0}", s.toString()).toString();
-        System.out.println("최종 s의 값은 :" + s.toString());
+        System.out.println("최종 s의 값은 : " + s.toString());
+        System.out.println(MessageFormat.format("\tindexOf({0})", s.indexOf(String.valueOf(1))));
         return s.substring(s.indexOf("1"));
     }
 
     public static void main(String[] args) {
-        int num1 = 123;
-        int num2 = -123;
+        int num1 = 1238123;
+        int num2 = -22981123;
         System.out.printf("%d : %s\n", num1, shifts(num1));
         System.out.printf("%d : %s\n", num2, shifts(num2));
     }
