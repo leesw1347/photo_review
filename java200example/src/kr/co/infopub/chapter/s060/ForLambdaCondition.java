@@ -26,7 +26,7 @@ public class ForLambdaCondition {
 
         // stream reducre
         s = ilist.stream()
-                .reduce(0, Integer::sum);
+                .reduce(0, Integer::sum); // 홀수 제곱수의 합을 구한다
         System.out.println("1~10 사이의 홀수에 대한 제곱합 :  " + s);
     }
 }
