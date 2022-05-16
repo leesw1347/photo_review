@@ -7,6 +7,8 @@ public class UsingObject {
 
         System.out.println(obj1.hashCode()); // native 10진수
         System.out.println(Integer.toHexString(obj1.hashCode())); // 16진수
+
+        // Class 레퍼런스 객체는 고유하므로 false를 리턴한다
         System.out.println(obj1 == obj2); // 객체는 고유하다
         System.out.println(obj1.equals(obj2)); // 객체는 고유하다
         System.out.println(obj1);
@@ -24,7 +26,5 @@ public class UsingObject {
 
         String hello = "Hello";
         System.out.println(hello.getClass());
-
-
     }
 }
