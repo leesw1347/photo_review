@@ -1,5 +1,7 @@
 package kr.co.infopub.chapter.s070;
 
+import java.text.MessageFormat;
+
 public class StringBuilderMain {
     public static void main(String[] args) {
         //synchronized 안한 StringBuffer
@@ -27,11 +29,10 @@ public class StringBuilderMain {
         System.out.print("====\n");
         System.out.println(st);
         System.out.println(sbu);
-
     }
 
     public static void print(StringBuilder sb) {
-        System.out.print(sb.toString());
+        System.out.print(MessageFormat.format("{0} {1}", sb.toString(), Integer.toHexString(sb.hashCode())));
         System.out.println();
     }
 }
