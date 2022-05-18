@@ -8,9 +8,9 @@ import java.text.MessageFormat;
  * 객체를 사용하면 좀 더 편하게 작업이 가능하다
  */
 public class Billboard implements Serializable {
-    private int rank;       // 순위
+    private String rank;       // 순위
     private String song;    // 곡명
-    private int lastweek;   // 전 주 순위
+    private String lastweek;   // 전 주 순위
     private String imagesrc;    // 가수 사진
     private String artistsrc;   // 가수 정보
     private String artist;      // 가수 이름
@@ -21,15 +21,15 @@ public class Billboard implements Serializable {
     }
 
     public Billboard(int rank, String song, int lastweek, String imagesrc, String artistsrc, String artist) {
-        this.rank = rank;
+        this.rank = String.valueOf(rank);
         this.song = song;
-        this.lastweek = lastweek;
+        this.lastweek = String.valueOf(lastweek);
         this.imagesrc = imagesrc;
         this.artistsrc = artistsrc;
         this.artist = artist;
     }
 
-    public Billboard(int rank, String song, int lastweek, String imagesrc, String artist) {
+    public Billboard(String rank, String song, String lastweek, String imagesrc, String artist) {
         this.rank = rank;
         this.song = song;
         this.lastweek = lastweek;
@@ -50,12 +50,12 @@ public class Billboard implements Serializable {
         ).toString();
     }
 
-    public int getRank() {
+    public String getRank() {
         return rank;
     }
 
     public void setRank(int rank) {
-        this.rank = rank;
+        this.rank = String.valueOf(rank);
     }
 
     public String getSong() {
@@ -66,12 +66,12 @@ public class Billboard implements Serializable {
         this.song = song;
     }
 
-    public int getLastweek() {
+    public String getLastweek() {
         return lastweek;
     }
 
     public void setLastweek(int lastweek) {
-        this.lastweek = lastweek;
+        this.lastweek = String.valueOf(lastweek);
     }
 
     public String getImagesrc() {
