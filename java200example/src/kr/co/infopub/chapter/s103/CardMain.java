@@ -12,5 +12,7 @@ public class CardMain {
         Card c2 = new Card(csuit1 + cvalu1); // 생성자 (String Argument) H6 전달
         Card c3 = new Card(); // 기본 생성자 H2를 가짐
         Card c4 = new Card(csuit2 + csuit1); // 생성자 (String Argument) H6 전달
+
+        System.out.printf("%s,%s,%s,%s\n", c1, c2, c3, c4);
     }
 }
