@@ -31,4 +31,23 @@ public class Card {
     public String toString() {
         return MessageFormat.format("[{0}]", getCardVal());
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cardVal == null) ? 0 : cardVal.hashCode());
+        return result;
+    }
+
+    // 같은 값을 가지는 카드끼리도 카드1.equals(카드2)는 false가 나오기 때문에,
+    // 갑ㅌ은 값을 가지면 같은 객체로 만들어야할 때, equals()를 오버라이딩한다
+    @Override
+    public boolean equals(Object obj) {
+        Card cb = (Card) obj;
+        if (cardVal.equals(cb.getCardVal())) {
+            return true;
+        }
+        return false;
+    }
 }
