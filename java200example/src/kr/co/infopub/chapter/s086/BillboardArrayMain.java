@@ -2,6 +2,7 @@ package kr.co.infopub.chapter.s086;
 
 import kr.co.infopub.chapter.s084.Billboard;
 
+import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,27 +21,13 @@ public class BillboardArrayMain {
         System.out.println("빌보드차트의 ArrayList 사이즈는 " + billboards.size()); // ArrayList에서 size를 얻기 위해서 size 메소드를 사용한다
         System.out.println("\n-------");
         Iterator<Billboard> billboardIterator = billboards.stream().iterator();
+        printAbout(billboards);
+        PrintWriter printWriter = FileUtil.reader("billboard");
 
         while (billboardIterator.hasNext()) {
             Billboard billboard = billboardIterator.next();
-            if (billboard != null) {
-                showAbout(billboard);
-            }
+            printWriter.println(billboard);
         }
-
-        billboards.removeIf(new Predicate<Billboard>() {
-            @Override
-            public boolean test(Billboard billboard) {
-                System.out.println(MessageFormat.format("해당 빌보드 객체는 위치 : {0}", billboards.indexOf(billboard)));
-                if (billboards.indexOf(billboard) == 0) {
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        printAbout(billboards);
-
     }
 
     // 객체를 전달하여 출력
