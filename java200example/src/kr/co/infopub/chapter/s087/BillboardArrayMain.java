@@ -23,9 +23,9 @@ public class BillboardArrayMain {
             );
             String msg = "";
 
-            while ((msg = bufferedReader.readLine())) {
-                System.out.print(msg);
-            }
+//            while ((msg = bufferedReader.readLine())) {
+//                System.out.print(msg);
+//            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
