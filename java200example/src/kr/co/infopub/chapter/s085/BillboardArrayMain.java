@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 // 빌보드 차트를 리스트에 저장하고 출력하기
 public class BillboardArrayMain {
@@ -27,13 +28,41 @@ public class BillboardArrayMain {
                 showAbout(billboard);
             }
         }
+
+//        showAbout(billboards.get(0)); // 0번째 Billboard 객체를 가져와서 뿌려준다
+//        billboards.remove(1); // 1번째 삭제
+        billboards.removeIf(new Predicate<Billboard>() {
+            @Override
+            public boolean test(Billboard billboard) {
+                System.out.println(MessageFormat.format("해당 빌보드 객체는 위치 : {0}", billboards.indexOf(billboard)));
+                if (billboards.indexOf(billboard) == 0) {
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        printAbout(billboards);
+
     }
 
     // 객체를 전달하여 출력
     private static void showAbout(Billboard bb) {
         String sf = String.format("%d, %s, %d, %s, %s",
                 bb.getRank(), bb.getSong(), bb.getLastweek(), bb.getImagesrc(), bb.getArtist());
-        System.out.print(sf.toString());
+        System.out.println(sf.toString());
+    }
+
+    private static void printAbout(ArrayList<Billboard> billboardArrayList) {
+        if (billboardArrayList != null && billboardArrayList.size() > 0) {
+            Iterator<Billboard> billboardIterator = billboardArrayList.stream().iterator();
+            while (billboardIterator.hasNext()) {
+                Billboard billboard = billboardIterator.next();
+                System.out.println(billboard);
+            }
+        } else {
+            System.out.println("빌보드 차트 ArrayList가 비어있습니다");
+        }
     }
 
     private static boolean addBillboard(ArrayList<Billboard> arrayList, Billboard billboard) {
