@@ -21,7 +21,7 @@ public class FileUtil {
             if (!f.exists()) {
                 f.mkdirs();
             }
-            
+
             printWriter = FileUtil.getPrintWriter(packageName + "/bill.txt", false);
         }
         return printWriter;
