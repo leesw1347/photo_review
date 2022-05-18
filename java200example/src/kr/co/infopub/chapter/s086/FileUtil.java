@@ -16,9 +16,12 @@ public class FileUtil {
             String packageName = MessageFormat.format("src/{0}/{1}", FileUtil.class.getPackageName(), folderName);
             System.out.println(packageName);
             f = new File(packageName);
+
+            // 디렉토리가 존재하지 않으면 billboard 디렉토리를 생성한다
             if (!f.exists()) {
-                f.mkdirs();// File이 존재하지 않을 경우, 폴더를 생성한다
+                f.mkdirs();
             }
+            
             printWriter = FileUtil.getPrintWriter(packageName + "/bill.txt", false);
         }
         return printWriter;
