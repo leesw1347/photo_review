@@ -16,9 +16,9 @@ public class CardRuleMain {
             cc.shuffle();
             cc.print();
 
-            Card card = cc.getCard(0);
-            Card card1 = cc.getCard(2);
-            int a = rule.rule(card, card1);
+//            Card card = cc.getCard(0);
+//            Card card1 = cc.getCard(2);
+//            int a = rule.rule(card, card1);
         }
     }
 }
