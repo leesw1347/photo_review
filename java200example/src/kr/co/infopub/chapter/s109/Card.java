@@ -4,9 +4,21 @@ import kr.co.infopub.chapter.s107.CardUtil;
 
 import java.text.MessageFormat;
 
+/**
+ * 람다와 :: 를 이용해서 카드를 순서대로 정렬하는 방법을 익혀보자
+ * 비교 기준 클래스 없이 람다와 :: 을 이용하여 기준을 만든다
+ */
 public class Card {
 
-    // 람다와
+    // 추가된 static 비교 기준 메소드
+    public static int compareCard(Card c1, Card c2) {
+        return c1.getCardVal().compareTo(c2.getCardVal());
+    }
+
+    // 추가된 static 비교 기준 메소드
+    public static int compareRCard(Card c1, Card c2) {
+        return -(c1.getCardVal().compareTo(c2.getCardVal()));
+    }
 
     private String cardVal; // H8
 
