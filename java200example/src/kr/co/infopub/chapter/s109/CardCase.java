@@ -1,7 +1,5 @@
 package kr.co.infopub.chapter.s109;
 
-import com.sun.source.tree.CompoundAssignmentTree;
-import kr.co.infopub.chapter.s109.Card;
 import kr.co.infopub.chapter.s106.CardUtil;
 
 import java.util.ArrayList;
@@ -103,10 +101,13 @@ public class CardCase {
     }
 
     // List의 index번째 Card
-    public Card getCard(int index) {
+    public kr.co.infopub.chapter.s110.Card getCard(int index) {
         Card card = null;
-        if (index >= 0 && cards.size() < index) {
+//        System.out.println("cards.size() " + cards.size());
+        if (index >= 0 && cards.size() > index) {
+//            System.out.println("인덱스 레벨은 " + index);
             card = cards.get(index); // index번째 card
+//            System.out.print(MessageFormat.format("{0} : {1}", card, index));
         }
         return card;
     }
