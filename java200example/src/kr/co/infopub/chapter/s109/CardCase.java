@@ -101,7 +101,7 @@ public class CardCase {
     }
 
     // List의 index번째 Card
-    public kr.co.infopub.chapter.s110.Card getCard(int index) {
+    public Card getCard(int index) {
         Card card = null;
 //        System.out.println("cards.size() " + cards.size());
         if (index >= 0 && cards.size() > index) {
