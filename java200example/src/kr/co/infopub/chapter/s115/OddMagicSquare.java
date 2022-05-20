@@ -1,7 +1,6 @@
 package kr.co.infopub.chapter.s115;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
 
 public class OddMagicSquare {
     private int[][] magic; // 2차원 배열 선언
@@ -25,7 +24,7 @@ public class OddMagicSquare {
             int tempX = x; // 옮겨지기 전 위치 저장
             int tempY = y;
             System.out.printf("(%d, %d)\t", x, y);
-            magic[x][y] = i; // 1 ~ n x n 대입;
+            this.magic[x][y] = i; // 1 ~ n x n 대입;
 
             // 위로이동
             if (x - 1 < 0) {
@@ -41,7 +40,38 @@ public class OddMagicSquare {
             }
 
             // 이미 존재
-            if (magic[x][y] != 0) {
+            if (this.magic[x][y] != 0) {
+                x = tempX + 1; // x 원위치 + 1;
+                y = tempY; // y 원위치
+            }
+        }
+    }
+
+    public void make(int[][] magic, int n) { // 홀수 마방진 만들기
+        this.magic = magic;
+        int x = 0; // 가장 윗줄
+        int y = n / 2; // 중앙
+        for (int i = 1; i <= n * n; i++) { // 2번째 행부터 차례대로 행렬을 생성한다
+            int tempX = x; // 옮겨지기 전 위치 저장
+            int tempY = y;
+            System.out.printf("(%d, %d)\t", x, y);
+            this.magic[x][y] = i; // 1 ~ n x n 대입;
+
+            // 위로이동
+            if (x - 1 < 0) {
+                x = n - 1;
+            } else {
+                x--; // 정상 x = x-1;
+            }
+            // 왼쪽으로 이동
+            if (y - 1 < 0) {
+                y = n - 1; // 왼쪽벽으로 이동
+            } else {
+                y--; // 정상 y = y-1;
+            }
+
+            // 이미 존재
+            if (this.magic[x][y] != 0) {
                 x = tempX + 1; // x 원위치 + 1;
                 y = tempY; // y 원위치
             }
