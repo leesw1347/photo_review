@@ -20,4 +20,8 @@ public class MagicSquare {
     public void make() {
         // make() 구현했으나 내용 없음
     }
+
+    public void print() {
+
+    }
 }
