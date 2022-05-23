@@ -1,6 +1,7 @@
 package Chapter2;
 
 import java.util.*;
+import java.util.function.UnaryOperator;
 
 public class MyArrayList<E> implements List<E> {
     int size; // 요소의 개수를 추적합니다
@@ -17,15 +18,10 @@ public class MyArrayList<E> implements List<E> {
 
     }
 
-//    @Override
-//    public E remove(int index) {
-//        if (index >= size && index < 0) {
-//            return null;
-//        }
-//
-//        int index_of = indexOf()
-//        return null;
-//    }
+    @Override
+    public E remove(int index) {
+        return null;
+    }
 
     @Override
     public int indexOf(Object o) {
@@ -63,6 +59,11 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         return null;
+    }
+
+    @Override
+    public Spliterator<E> spliterator() {
+        return List.super.spliterator();
     }
 
     @Override
@@ -184,6 +185,16 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public boolean retainAll(Collection<?> c) {
         return false;
+    }
+
+    @Override
+    public void replaceAll(UnaryOperator<E> operator) {
+        List.super.replaceAll(operator);
+    }
+
+    @Override
+    public void sort(Comparator<? super E> c) {
+        List.super.sort(c);
     }
 
     @Override
