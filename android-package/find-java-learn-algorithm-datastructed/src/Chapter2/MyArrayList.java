@@ -17,10 +17,15 @@ public class MyArrayList<E> implements List<E> {
 
     }
 
-    @Override
-    public E remove(int index) {
-        return null;
-    }
+//    @Override
+//    public E remove(int index) {
+//        if (index >= size && index < 0) {
+//            return null;
+//        }
+//
+//        int index_of = indexOf()
+//        return null;
+//    }
 
     @Override
     public int indexOf(Object o) {
@@ -62,12 +67,12 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -99,7 +104,11 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        // make a copy the array
+        E[] copy = Arrays.copyOf(array, size);
+        // make a list and return an iterator
+//        System.out.println(Arrays.asList(copy));
+        return Arrays.asList(copy).iterator();
     }
 
     @Override
@@ -219,5 +228,7 @@ public class MyArrayList<E> implements List<E> {
 //        System.out.println("3의 값이 array 내에 있어요 ? " + myArrayList.equals(3)); //
 //        System.out.println("3의 값이 array 내에 있어요 ? " + myArrayList.equals(155)); //
 //        myArrayList.remove(new Integer(2));
+
+        System.out.println("listIterator " + myArrayList.iterator());
     }
 }
