@@ -15,30 +15,47 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public void add(int index, E element) {
+        // 인덱스와 요소를 인자로 받는 add 메서드
+        if (index < 0 && index > size) {
+            throw new IndexOutOfBoundsException();
+        }
 
+        // 크기 조정을 통해 요소를 추가합니다
+        add(element);
+
+        // 다른 요소를 시프트합니다
+        for (int i = size - 1; i > index; i--) { // array[i]의 마지막부터 index 순번까지 데이터를 lsh 처리한다
+            System.out.println(i + " 번째 " + array[i] + "를 이동 시킵니다 " + Arrays.asList(array));
+            array[i] = array[i - 1];
+//            System.out.println(Arrays.asList(array));
+        }
+
+        // 올바른 자리에 새로운 값을 넣습니다
+        array[index] = element;
     }
 
     @Override
     public E remove(int index) {
-        return null;
+        E element = get(index); // 상수 시간인 get 메소드를 사용하고 index부터 배열에 반복문을 실행한다
+        for (int i = index; i < size - 1; i++) { // 리스트의 마지막 부분을 제거하면, 상수시간이 되고 반복문을 실행하지 않는다
+            array[i] = array[i + 1];
+        }
+        size--;
+        return element;
     }
 
     @Override
     public int indexOf(Object o) {
         E i = (E) o;
-//        if (i >= array.length && i < 0) {
-//            System.out.println("indexOf 함수는 여기서는 " + i + "에 포함될 수 없습니다");
-//            return -1;
-//        }
         Integer index = -1;
         for (E arr : array) {
             if (equals((E) i)) {
-                break;
+                return index;
             } else {
                 index++;
             }
         }
-        return index;
+        return -1;
     }
 
     @Override
@@ -135,15 +152,20 @@ public class MyArrayList<E> implements List<E> {
         return true;
     }
 
+    /**
+     * @param o: 삭제하려는 Object 객체
+     * @return boolean [true, false]
+     * @apiNote array에서 Object(o)에 해당하는 배열 데이터를 삭제하는 기능함수
+     */
     @Override
     public boolean remove(Object o) {
-        Integer i = (Integer) o;
-        for (int index = 0; index < array.length; index++) {
-            if (array[index] == i) {
-
-            }
+        boolean flag = false;
+        int index = indexOf(o); // o가 array 내에서 몇번째 인덱스에 존재하는지 확인한다
+        if (index == -1) {
+            System.out.print(Arrays.asList(array) + " 에서는 " + o + "에 해당하는 데이터의 인덱스를 찾을 수 없습니다");
+            return flag;
         }
-        return true;
+        return flag;
     }
 
     /**
@@ -179,7 +201,11 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        boolean flag = false;
+        for (Object obj : c) {
+            flag |= remove(obj);
+        }
+        return flag;
     }
 
     @Override
@@ -233,13 +259,14 @@ public class MyArrayList<E> implements List<E> {
         myArrayList.add(2);
         myArrayList.add(3);
         myArrayList.set(0, 150);
-        System.out.println(myArrayList.get(0));
+        myArrayList.add(1, 160);
+//        System.out.println(myArrayList.get(0));
         System.out.println(Arrays.toString(myArrayList.toArray()) + ", size = " + myArrayList.size);
-        System.out.println("3은 어느 위치에 있어요 ? " + myArrayList.indexOf(3));
+//        System.out.println("3은 어느 위치에 있어요 ? " + myArrayList.indexOf(3));
 //        System.out.println("3의 값이 array 내에 있어요 ? " + myArrayList.equals(3)); //
 //        System.out.println("3의 값이 array 내에 있어요 ? " + myArrayList.equals(155)); //
-//        myArrayList.remove(new Integer(2));
-
-        System.out.println("listIterator " + myArrayList.iterator());
+        System.out.println("삭제할 remove의 element 데이터는 " + myArrayList.remove(2));
+//        myArrayList.removeAll()
+//        System.out.println("listIterator " + myArrayList.iterator());
     }
 }
