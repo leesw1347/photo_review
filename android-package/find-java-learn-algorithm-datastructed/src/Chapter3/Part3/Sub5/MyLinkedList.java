@@ -278,9 +278,22 @@ public class MyLinkedList<T> implements List<T> {
         return -1;
     }
 
+    /**
+     * @param o
+     * @return
+     * @summary node list에서 o에 해당하는 값의 마지막 index 값을 구한다
+     */
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        Node node = head;
+        int index = -1;
+        for (int i = 0; i < size; i++) { // stream 객체를 이용해서 while(*hasNext)를 사용할 수 있다
+            if (equals(o, node.data)) {
+                index = i;
+            }
+            node = node.next;
+        }
+        return index;
     }
 
     @Override
