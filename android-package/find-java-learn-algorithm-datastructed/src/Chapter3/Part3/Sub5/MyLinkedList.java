@@ -48,7 +48,8 @@ public class MyLinkedList<T> implements List<T> {
         mll.add(1);
         mll.add(2);
         mll.add(3);
-        System.out.println(mll.contains(3));
+//        System.out.println(mll.contains(3));
+
     }
 
     @Override
@@ -116,17 +117,34 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        boolean flag = true;
+        Iterator iterator = c.stream().iterator();
+        while (iterator.hasNext()) {
+            T value = (T) iterator.next();
+            if (!contains(value)) { // -1이 나오면 c 안에 1개라도 포함되지 않는 원소가 있다는 것을 의미한다
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+//        return false;
+        // Collection으로 들어온 모든 원소들을 Node에 추가한다
+        boolean flag = true;
+
+        Iterator iterator = c.iterator();
+        while (iterator.hasNext()) {
+            T o = (T) iterator.next();
+            flag &= add(o); //
+        }
+        return flag;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -156,12 +174,45 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public void clear() {
-
+        head = null;
+        size = 0;
     }
 
+    /**
+     * @param index
+     * @return
+     * @summary index에 존재하는 node 데이터를 가져온다
+     */
     @Override
     public T get(int index) {
-        return null;
+        Node node = getNode(index);
+        if (node != null) {
+            return node.data;
+        }
+        try {
+            return node.data;
+        } catch (NullPointerException ex) {
+            return null;
+        }
+    }
+
+
+    /**
+     * @param index
+     * @return
+     * @summary Returns the node at the given index.
+     */
+    private Node getNode(int index) {
+        if (index < 0 || index >= size) { // 반복문을 돌릴 index 의 크기가 0보다 작거나 size랑 같거나 클경우 IndexOutOfBoundsException를 처리한다
+            throw new IndexOutOfBoundsException();
+        }
+        Node node = head;
+
+        // 노드를 index 위치까지 이동 시킨다
+        for (int i = 0; i < index; i++) {
+            node = node.next;
+        }
+        return node;
     }
 
     @Override
@@ -169,82 +220,117 @@ public class MyLinkedList<T> implements List<T> {
         return null;
     }
 
+    /**
+     * @param index   index 위치에 element를 추가한다
+     * @param element 추가할 element data
+     */
     @Override
     public void add(int index, T element) {
-
+        if (index == 0) {
+            head = new Node(element, null);
+        } else {
+            Node node = getNode(index - 1);
+            node.next = new Node(element, node.next); // 이전 노드의 .next를 새롭게 생성한 노드로 설정하고, 다음 노드는 기존에 있던 node.next로 설정해준다
+        }
     }
 
+    /**
+     * @param index 삭제할 index를 getNode를 통해서 찾은 뒤 null이 아닐 경우 삭제하고 노드 연결을 수정해준다
+     * @return
+     * @summary node list 에서 index에 해당하는 위치의 값을 찾는데 사용한다
+     */
     @Override
     public T remove(int index) {
-        return null;
+        T element = get(index); // index에 해당하는 node의 data 값을 확보한다
+        if (index == 0) {
+            head = head.next;
+        } else {
+            Node node = getNode(index - 1);
+            node.next = node.next.next; // 삭제하려는 노드의 next를 이전 노드와 연결해준다
+        }
+        size--; // 노드를 1개 제거하기 때문에 size도 줄여준다
+        return element;
     }
 
     @Override
-    public int indexOf(Object o) {
-        int index = 0;
-        boolean is_contains = false;
-
-        if (o == null) {
-            return -1;
-        }
+    public int indexOf(Object target) {
         Node node = head;
-//        System.out.println(node);
-//        System.out.println(node.next);
-//        System.out.println(node.data);
-//        System.out.println("----");
 
-        for (; !is_contains; node = node.next) {
-//            System.out.println("DEBUG1 " + o);
-//            System.out.println("DEBUG2 " + node.data);
-            if (node != null) {
-                if (o == node.data) {
-                    is_contains = true;
-                    break;
-                } else {
-                    index += 1;
-                }
+        for (int i = 0; i < size; i++) {
+            if (equals(target, node.data)) {
+                return i;
             }
+            node = node.next;
         }
-        if (!is_contains) {
-            index = -1;
+        return -1;
+
+        /**
+         int index = 0;
+         boolean is_contains = false;
+
+         if (target == null) {
+         return -1;
+         }
+         Node node = head;
+
+         for (; !is_contains; node = node.next) {
+         //            System.out.println("DEBUG1 " + o);
+         //            System.out.println("DEBUG2 " + node.data);
+         if (node != null) {
+         if (target == node.data) {
+         is_contains = true;
+         break;
+         } else {
+         index += 1;
+         }
+         }
+         }
+         if (!is_contains) {
+         index = -1;
+         }
+         System.out.println("리턴하고자 하는 인덱스는 " + index);
+         return index;
+         }
+         **/
+
+        @Override
+        public int lastIndexOf (Object o){
+            return 0;
         }
-        System.out.println("리턴하고자 하는 인덱스는 " + index);
-        return index;
+
+        @Override
+        public ListIterator<T> listIterator () {
+            return null;
+        }
+
+        @Override
+        public ListIterator<T> listIterator ( int index){
+            return null;
+        }
+
+        @Override
+        public List<T> subList ( int fromIndex, int toIndex){
+            return null;
+        }
+
+        @Override
+        public Spliterator<T> spliterator () {
+            return List.super.spliterator();
+        }
+
+        @Override
+        public Stream<T> stream () {
+            return List.super.stream();
+        }
+
+        @Override
+        public Stream<T> parallelStream () {
+            return List.super.parallelStream();
+        }
+
     }
 
-    @Override
-    public int lastIndexOf(Object o) {
-        return 0;
+    private boolean equals(Object target, T data) {
+        return (target == data);
     }
-
-    @Override
-    public ListIterator<T> listIterator() {
-        return null;
-    }
-
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        return null;
-    }
-
-    @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        return null;
-    }
-
-    @Override
-    public Spliterator<T> spliterator() {
-        return List.super.spliterator();
-    }
-
-    @Override
-    public Stream<T> stream() {
-        return List.super.stream();
-    }
-
-    @Override
-    public Stream<T> parallelStream() {
-        return List.super.parallelStream();
-    }
-
 }
