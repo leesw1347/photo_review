@@ -101,14 +101,24 @@ public class MyLinkedList<T> implements List<T> {
         List.super.forEach(action);
     }
 
+    /**
+     * @return
+     * @summary Object List 객체를 생성해서 리턴해준다
+     */
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] array = new Object[size]; // Object 객체 리스트를 size만큼 생성한다
+        int i = 0;
+        Node node = head;
+        for (; node != null; node = node.next) {
+            array[i] = node.data;
+        }
+        return array;
     }
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
