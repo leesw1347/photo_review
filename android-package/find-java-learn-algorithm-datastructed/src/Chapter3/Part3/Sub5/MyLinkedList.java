@@ -1,5 +1,6 @@
 package Chapter3.Part3.Sub5;
 
+import java.text.MessageFormat;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
@@ -30,8 +31,16 @@ public class MyLinkedList<T> implements List<T> {
 
         @Override
         public String toString() {
+            Node node = head;
+            StringBuilder stringBuilder = new StringBuilder();
 //            return super.toString();
-            return "Node(" + data.toString() + ")";
+            for (int i = 0; i < size; i++) {
+                System.out.print(node.data + " ");
+                stringBuilder.append(node.data);
+                node = node.next;
+            }
+            System.out.println("\n성공적으로 메모리 할당 성공완료!");
+            return stringBuilder.toString();
         }
     }
 
@@ -48,12 +57,18 @@ public class MyLinkedList<T> implements List<T> {
         mll.add(1);
         mll.add(2);
         mll.add(3);
+        mll.add(4);
+        mll.add(5);
+        mll.add(6);
 
         System.out.println(Arrays.toString(mll.toArray()) + " size = " + mll.size());
         mll.remove(new Integer(2));
         System.out.println(Arrays.toString(mll.toArray()) + " size = " + mll.size());
 
-        mll.iterator();
+//        mll.iterator();
+        mll.set(0, 15);
+//        System.out.println(mll.toString());
+        System.out.println(mll.subList(1, 3));
     }
 
     @Override
@@ -155,9 +170,18 @@ public class MyLinkedList<T> implements List<T> {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * @param c
+     * @return
+     * @summary c에 해당하는 모든 데이터들을 node list에서 삭제한다
+     */
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        boolean flag = true;
+        for (Object obj : c) {
+            flag &= remove(obj);
+        }
+        return flag;
     }
 
     @Override
@@ -167,7 +191,7 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -223,9 +247,22 @@ public class MyLinkedList<T> implements List<T> {
         return node;
     }
 
+    /**
+     * @param index   node list 위치 index
+     * @param element Node 객체에 할당할 값
+     * @return
+     * @summary node list 내에서 index 위치에 해당한느 Node 객체에 element를 할당한다
+     */
     @Override
     public T set(int index, T element) {
-        return null;
+        Node node = getNode(index);
+        T old = (T) null;
+        if (node != null) {
+            old = node.data;
+            node.data = element;
+            System.out.println(MessageFormat.format("index = {0} 위치에 element = {1}를 할당했습니다", index, element));
+        }
+        return old;
     }
 
     /**
@@ -306,9 +343,33 @@ public class MyLinkedList<T> implements List<T> {
         return null;
     }
 
+    /**
+     * @param fromIndex
+     * @param toIndex
+     * @return ArrayList 객체
+     * @summary List 내에서 fromIndex~toIndex까지 list node에서 따로 뽑아서 리턴한다
+     */
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        return null;
+        ArrayList<T> arrayList = new ArrayList<>();
+
+        // fromIndex와 toIndex의 경계범위 체크를 수행하는 기능을 한다
+        if (fromIndex < 0 || toIndex >= size || fromIndex > toIndex) {
+            throw new IndexOutOfBoundsException();
+        }
+        // classify this and improve it;
+        int i = 0;
+        int index = fromIndex;
+        Node node = head;
+
+        for (; node.next != null; node = node.next) {
+            if ((i >= fromIndex && i <= toIndex) && index <= toIndex) {
+                arrayList.add(node.data);
+                index++;
+            }
+            i++;
+        }
+        return arrayList.stream().toList();
     }
 
     @Override
