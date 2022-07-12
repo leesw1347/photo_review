@@ -1,0 +1,30 @@
+<!--
+사진 게시물 작성 기능 만들기
+관리자 페이지를 거치지 않고, 작성할 수 있도록 하는 게시물 작성 기능을 만들어 본다.
+게시물을 작성하는 단계에서는 폼이라고 하는 기능을 추가적으로 배워본다.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo App</title>
+</head>
+<body>
+<h1>
+    <a href="/">홈으로 돌아가기</a>
+</h1>
+
+<div>
+    <section>
+        <h2>
+            New Photo
+        </h2>
+        <form method="post">
+            {% csrf_token %} {{ form.as_p }} <!-- form.as_p는 form을 태그 형식으로 만들어주겠다는 것이다  -->
+            <button type="submit">완료!</button>
+        </form>
+    </section>
+</div>
+</body>
+</html>
